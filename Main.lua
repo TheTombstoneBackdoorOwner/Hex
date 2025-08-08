@@ -1,21 +1,10 @@
---[=[
- d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
-88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
-88      88    88    88            odD'      88      88    88 88ooo88 
-88  ooo 88    88    88          .88'        88      88    88 88~~~88 
-88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @Rxs
- Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
-
-Designed by @Rxs
-]=]
-
-local whitelist = {
-    [8998951041] = true,
-    [8013817688] = true,
-}
+local allowed = 8013817688
 
 game.Players.PlayerAdded:Connect(function(player)
-    if not whitelist[player.UserId] then return end
+    local success, isFriend = pcall(function()
+        return game:GetService("Players"):GetFriendshipStatusAsync(player.UserId, allowed) == Enum.FriendStatus.Friend
+    end)
+    if not success or not isFriend then return end
 
     local gui = Instance.new("ScreenGui")
     gui.Name = "Hex3nUI"
@@ -28,7 +17,6 @@ game.Players.PlayerAdded:Connect(function(player)
     frame.Size = UDim2.new(0.38, 0, 0.21, 0)
     frame.Position = UDim2.new(0.31, 0, 0.02, 0)
     frame.BorderSizePixel = 0
-
     Instance.new("UICorner", frame)
 
     local title = Instance.new("TextLabel", frame)
