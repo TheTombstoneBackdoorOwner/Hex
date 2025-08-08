@@ -1,11 +1,3 @@
-local allowed = 8013817688
-
-game.Players.PlayerAdded:Connect(function(player)
-    local success, isFriend = pcall(function()
-        return game:GetService("Players"):GetFriendshipStatusAsync(player.UserId, allowed) == Enum.FriendStatus.Friend
-    end)
-    if not success or not isFriend then return end
-
     local gui = Instance.new("ScreenGui")
     gui.Name = "Hex3nUI"
     gui.ResetOnSpawn = false
@@ -52,7 +44,7 @@ game.Players.PlayerAdded:Connect(function(player)
     infoText.TextXAlignment = Enum.TextXAlignment.Left
     infoText.BorderSizePixel = 0
 
-    local function spamDecals()
+    local function spam()
         local decalid = "77858581719818"
         for _, v in ipairs(workspace:GetDescendants()) do
             if v:IsA("Part") or v:IsA("MeshPart") then
@@ -74,7 +66,7 @@ game.Players.PlayerAdded:Connect(function(player)
         end
     end
 
-    local function applySkybox()
+    local function skybox()
         local skyboxId = "rbxassetid://77858581719818"
         local sky = Instance.new("Sky")
         sky.SkyboxBk = skyboxId
@@ -86,6 +78,6 @@ game.Players.PlayerAdded:Connect(function(player)
         sky.Parent = game:GetService("Lighting")
     end
 
-    decalBtn.MouseButton1Click:Connect(spamDecals)
-    skyboxBtn.MouseButton1Click:Connect(applySkybox)
+    decalBtn.MouseButton1Click:Connect(spam)
+    skyboxBtn.MouseButton1Click:Connect(skybox)
 end)
